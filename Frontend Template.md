@@ -1,0 +1,6 @@
+- [x] Login Rework
+- [ ] Register Rework 
+- [ ] Email Verify Flow
+- [ ] Logout Flow
+- [ ] Profile Pages Flow
+- [ ] Security Page Flow
