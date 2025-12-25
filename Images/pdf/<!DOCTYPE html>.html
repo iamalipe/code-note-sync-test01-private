@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        /* Medical specific colors */
+        --medical-header: 210 100% 20%;
+        --medical-section: 0 0% 97%;
+        --medical-border: 0 0% 75%;
+        --medical-text: 0 0% 15%;
+        --medical-label: 0 0% 35%;
+      }
+
+      /* Medical record specific utilities */
+      .medical-header {
+        background-color: hsl(var(--medical-header));
+        color: hsl(var(--primary-foreground));
+      }
+
+      .medical-section {
+        background-color: hsl(var(--medical-section));
+        border: 1px solid hsl(var(--medical-border));
+      }
+
+      .medical-label {
+        color: hsl(var(--medical-label));
+        font-weight: 600;
+      }
+
+      .medical-text {
+        color: hsl(var(--medical-text));
+      }
+    </style>
+  </head>
+  <body>
+    <div class="max-w-4xl mx-auto bg-white p-8 print:p-6 print:max-w-none">
+      <!-- {/* Section 1: Top - Basic Doc Info (Left) & Barcode/QR (Right) */} -->
+      <div
+        class="flex justify-between items-start mb-8 pb-4 border-b-2 border-medical-border"
+      >
+        <div class="flex-1">
+          <h1 class="text-2xl font-bold medical-text mb-2">MEDICAL RECORD</h1>
+          <div class="space-y-1 text-base">
+            <p class="medical-label">
+              Document ID:
+              <span class="medical-text font-mono">MR-2024-001</span>
+            </p>
+            <p class="medical-label">
+              Generated:
+              <span class="medical-text"
+                >{new Date().toLocaleDateString()}</span
+              >
+            </p>
+            <p class="medical-label">
+              Provider: <span class="medical-text">{visit.provider}</span>
+            </p>
+          </div>
+        </div>
+        <div class="text-center">
+          <div
+            class="bg-medical-section border border-medical-border p-4 rounded"
+          >
+            <div class="font-mono text-xs medical-text mb-2">
+              ||||| |||| | ||| |||| |||||
+            </div>
+            <div
+              class="w-20 h-20 bg-medical-border border border-medical-text flex items-center justify-center text-xs medical-label"
+            >
+              QR CODE
+            </div>
+            <p class="text-xs medical-label mt-1">Scan for details</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- {/* Section 2: 1 Column & 2 Column Records with Underlines */} -->
+      <div class="mb-8">
+        <h2 class="text-lg font-bold medical-text mb-4">PATIENT INFORMATION</h2>
+        <!-- {/* 1 Column Records */} -->
+        <div class="mb-6">
+          <div class="grid grid-cols-1 gap-3">
+            <div class="flex items-center">
+              <span class="medical-label w-32 text-base self-start"
+                >Patient Name:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >{patient.name}</span
+              >
+            </div>
+            <div class="flex items-center">
+              <span class="medical-label w-32 text-base self-start"
+                >Address:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >{patient.address}</span
+              >
+            </div>
+            <div class="flex items-center">
+              <span class="medical-label w-32 text-base self-start"
+                >Insurance:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >{patient.insurance}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- {/* 2 Column Records */} -->
+        <div class="grid grid-cols-2 gap-8">
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <span class="medical-label w-20 text-base self-start">DOB:</span>
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >{patient.dob}</span
+              >
+            </div>
+            <div class="flex items-center">
+              <span class="medical-label w-20 text-base self-start">MRN:</span>
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1 font-mono"
+                >{patient.mrn}</span
+              >
+            </div>
+            <div class="flex items-center">
+              <span class="medical-label w-20 text-base self-start"
+                >Gender:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >Male</span
+              >
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <span class="medical-label w-24 text-base self-start"
+                >Phone:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >{patient.phone}</span
+              >
+            </div>
+            <div class="flex items-center">
+              <span class="medical-label w-24 text-base self-start"
+                >Visit Date:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >{visit.date}</span
+              >
+            </div>
+            <div class="flex items-center">
+              <span class="medical-label w-24 text-base self-start"
+                >Emergency:</span
+              >
+              <span
+                class="medical-text flex-1 border-b border-medical-border pb-1"
+                >Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Veniam provident similique animi.</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- {/* Section 3: Table */} -->
+      <div class="mb-8">
+        <h2 class="text-lg font-bold medical-text mb-4">
+          VITAL SIGNS & MEASUREMENTS
+        </h2>
+        <table class="w-full border-collapse border border-medical-border">
+          <thead>
+            <tr class="medical-section">
+              <th
+                class="border border-medical-border p-3 text-left medical-label text-base"
+              >
+                Measurement
+              </th>
+              <th
+                class="border border-medical-border p-3 text-left medical-label text-base"
+              >
+                Value
+              </th>
+              <th
+                class="border border-medical-border p-3 text-left medical-label text-base"
+              >
+                Normal Range
+              </th>
+              <th
+                class="border border-medical-border p-3 text-left medical-label text-base"
+              >
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Height
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base font-medium"
+              >
+                {visit.vitals.height}
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-label text-base"
+              >
+                5'6" - 6'2"
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Normal
+              </td>
+            </tr>
+            <tr class="bg-medical-section/30">
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Weight
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base font-medium"
+              >
+                {visit.vitals.weight}
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-label text-base"
+              >
+                150-190 lbs
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Normal
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Blood Pressure
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base font-medium"
+              >
+                {visit.vitals.bp}
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-label text-base"
+              >
+                90/60 - 140/90
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Normal
+              </td>
+            </tr>
+            <tr class="bg-medical-section/30">
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Pulse Rate
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base font-medium"
+              >
+                {visit.vitals.pulse}
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-label text-base"
+              >
+                60-100 bpm
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Normal
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Temperature
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base font-medium"
+              >
+                {visit.vitals.temp}
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-label text-base"
+              >
+                97.8°F - 99.1°F
+              </td>
+              <td
+                class="border border-medical-border p-3 medical-text text-base"
+              >
+                Normal
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- {/* Section 4: Extra Information */} -->
+      <div class="mb-8">
+        <h2 class="text-lg font-bold medical-text mb-4">
+          ADDITIONAL INFORMATION
+        </h2>
+        <div class="medical-section rounded p-6">
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <div>
+              <h3 class="medical-label text-base font-semibold mb-3">
+                Chief Complaint:
+              </h3>
+              <p class="medical-text text-base">{visit.chiefComplaint}</p>
+            </div>
+            <div>
+              <h3 class="medical-label text-base font-semibold mb-3">
+                Allergies:
+              </h3>
+              <p class="medical-text text-base">
+                NKDA (No Known Drug Allergies)
+              </p>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="medical-label text-base font-semibold mb-3">
+              Assessment & Plan:
+            </h3>
+            <p class="medical-text text-base leading-relaxed mb-3">
+              Patient presents for routine annual physical examination. Overall
+              appears healthy and well-nourished. No acute concerns at this
+              time. All systems review negative for significant findings.
+            </p>
+            <ul class="medical-text text-base space-y-1 list-disc list-inside">
+              <li>Continue current exercise routine and healthy diet</li>
+              <li>
+                Schedule routine lab work (CBC, CMP, Lipid panel) - fasting
+                required
+              </li>
+              <li>Return to clinic in 12 months for next annual physical</li>
+            </ul>
+          </div>
+
+          <div
+            class="flex justify-between items-end pt-6 border-t border-medical-border"
+          >
+            <div>
+              <p class="medical-text font-medium">{visit.provider}</p>
+              <p class="medical-label text-base">Internal Medicine</p>
+            </div>
+            <div class="text-right">
+              <div class="border-b border-medical-border w-48 mb-2"></div>
+              <p class="medical-label text-base">Provider Signature</p>
+              <p class="medical-text text-base">{visit.date}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

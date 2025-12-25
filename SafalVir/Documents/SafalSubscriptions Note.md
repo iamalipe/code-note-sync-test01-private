@@ -1,0 +1,1 @@
+master dynamic menu collection name - mas_default_menus
